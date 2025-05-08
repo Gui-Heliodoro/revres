@@ -16,7 +16,7 @@ services:
     image: n8nio/n8n:latest
     # ... sua configuração atual de n8n no Compose ou EasyPanel ...
     networks:
-      - web
+      - recntech_default
 
 networks:
   web:
