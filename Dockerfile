@@ -1,5 +1,5 @@
 FROM node:22-alpine
-WORKDIR /app
+WORKDIR /app/sse-server/code
 COPY package*.json ./
 RUN npm install --production
 COPY . .
