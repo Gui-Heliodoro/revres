@@ -32,7 +32,7 @@ app.get('/sse', (req, res) => {
 // Exemplo: dispara evento a cada 5s (substitua pela lógica real)
 setInterval(async () => {
   // Aqui você pode, por exemplo, chamar seu webhook n8n ou consultar DB
-  const updates = await fetch('https://recntech-n8n-webhook.7schuw.easypanel.host/webhook/list-chat').then(r => r.json());
+  const updates = await fetch('SSE_URL = 'https://recntech-sse-server.7schuw.easypanel.host/events').then(r => r.json());
   broadcast({ type: 'conversations', payload: updates });
 }, 5000);
 
