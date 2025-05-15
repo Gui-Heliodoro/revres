@@ -8,7 +8,7 @@ services:
       - web
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.sse.rule=Host(`https://recntech-n8n-editor.7schuw.easypanel.host) && PathPrefix(`/sse`)"
+      - "traefik.http.routers.sse.rule=Host(`recntech-n8n-editor.7schuw.easypanel.host) && PathPrefix(`/sse`)"
       - "traefik.http.services.sse.loadbalancer.server.port=3001"
 
   # exemplo de como referenciar seu n8n já existente:
