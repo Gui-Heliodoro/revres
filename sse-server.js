@@ -26,20 +26,19 @@ app.get('/sse', (req, res) => {
   res.set({
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    Connection: 'keep-alive'
+    'Connection': 'keep-alive'
   });
-  res.flushHeaders(); // Garante que os headers são enviados imediatamente
+  res.flushHeaders(); // Envia os headers imediatamente
 
-  const clientId = Date.now(); // ID simples para o cliente
-  const newClient = {
-    id: clientId,
-    res: res // Armazena o objeto de resposta
-  };
+  const clientId = Date.now();
+  const newClient = { id: clientId, res: res };
   clients.push(newClient);
-  console.log(`[SSE] Cliente ${clientId} conectado. Total: ${clients.length}`);
+  console.log(`[SSE] Cliente ${clientId} conectado (GET /sse). Total: ${clients.length}`);
 
-  // Envia um comentário inicial para manter a conexão aberta, se necessário
-  res.write(': Bem-vindo ao stream SSE\n\n');
+  // Envie um comentário ou um evento de "boas-vindas" imediatamente
+  res.write('id: ' + clientId + '\n'); // Opcional: enviar um ID para o evento
+  res.write('event: connected\n');
+  res.write('data: {"message": "Conexão SSE estabelecida com sucesso!"}\n\n'); // Envia um evento formatado
 
   req.on('close', () => {
     clients = clients.filter(c => c.id !== clientId);
