@@ -1,6 +1,7 @@
 {
   "name": "sse-server",
   "version": "1.0.0",
+  "type": "module", // Adicione esta linha
   "main": "sse-server.js",
   "dependencies": {
     "express": "^4.21.2",
