@@ -66,23 +66,20 @@ app.post('/webhook/sse', (req, res) => {
   if (chatwootEvent.event === 'message_created') {
     // Para novas mensagens, você quer enviar os dados da mensagem para o front-end
     // Ajuste o payload para o que o seu front-end espera para o evento 'messages'
-    const messageData = {
-      id: chatwootEvent.id, // ID da mensagem
-      content: chatwootEvent.content,
-      conversation_id: chatwootEvent.conversation.id,
-      sender_id: chatwootEvent.sender?.id,
-      sender_type: chatwootEvent.sender?.type,
-      created_at: chatwootEvent.created_at, // Timestamp da mensagem
-      echo_id: message.echo_id, // Se o Chatwoot suportar e enviar de volta
-      attachments: message.attachments || [] // Para futuras implementações
-      // Adicione outros campos relevantes que seu front-end precisa
-      // Por exemplo, informações do remetente, anexos, etc.
-      // O ideal é que este payload seja o mais próximo possível do que o 
-      // endpoint /webhook/get-message retorna no seu N8N, para que o front-end
-      // trate ambos da mesma forma.
-    };
+    onst message = chatwootEvent;
+  const messageData = {
+    id: message.id,
+    content: message.content, // Pode estar vazio se for só anexo
+    conversation_id: message.conversation.id,
+    sender_id: message.sender?.id,
+    sender_type: message.sender?.type,
+    created_at: message.created_at,
+    echo_id: message.echo_id,
+    attachments: message.attachments || [] // Crucial!
+  };
     console.log("[SSE Server] Transmitindo evento 'messages' com payload:", messageData);
     broadcast('messages', messageData);
+}
 
   } else if (chatwootEvent.event === 'conversation_created' || chatwootEvent.event === 'conversation_updated') {
     // Para atualizações de conversa, você pode querer enviar um evento 'conversations'
