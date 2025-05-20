@@ -73,6 +73,8 @@ app.post('/webhook/sse', (req, res) => {
       sender_id: chatwootEvent.sender?.id,
       sender_type: chatwootEvent.sender?.type,
       created_at: chatwootEvent.created_at, // Timestamp da mensagem
+      echo_id: message.echo_id, // Se o Chatwoot suportar e enviar de volta
+      attachments: message.attachments || [] // Para futuras implementações
       // Adicione outros campos relevantes que seu front-end precisa
       // Por exemplo, informações do remetente, anexos, etc.
       // O ideal é que este payload seja o mais próximo possível do que o 
